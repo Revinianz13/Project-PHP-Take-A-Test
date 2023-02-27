@@ -1,0 +1,37 @@
+// First, you would need to retrieve the data from the `QUESTION_STATS` table using a SQL query
+// and store it in a variable, such as `questionStatsData`
+
+// Next, you can use JavaScript to iterate through the data and create separate arrays for the labels, total attempts, and correct attempts
+var labels = [];
+var totalAttempts = [];
+var correctAttempts = [];
+
+for (var i = 0; i < questionStatsData.length; i++) {
+    labels.push(questionStatsData[i].Question_Level);
+    totalAttempts.push(questionStatsData[i].total_attempts);
+    correctAttempts.push(questionStatsData[i].correct_attempts);
+}
+
+// Use Chart.js to create a new doughnut chart
+var ctx = document.getElementById("questionStatsChart").getContext("2d");
+var questionStatsChart = new Chart(ctx, {
+    type: "doughnut",
+    data: {
+        labels: labels,
+        datasets: [{
+            label: "Total Attempts",
+            data: totalAttempts,
+            backgroundColor: "rgb(255, 99, 132)"
+        }, {
+            label: "Correct Attempts",
+            data: correctAttempts,
+            backgroundColor: "rgb(75, 192, 192)"
+        }]
+    },
+    options: {
+        title: {
+            display: true,
+            text: "Question Statistics"
+        }
+    }
+});
